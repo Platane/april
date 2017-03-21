@@ -1,0 +1,11 @@
+{
+    "presets": [
+        "flow"
+    ],
+    "plugins": [
+        ["transform-react-jsx", { "pragma":"preact.h" }],
+        "transform-class-properties",
+        "transform-es2015-modules-commonjs",
+        "transform-object-rest-spread"
+    ]
+}
