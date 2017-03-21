@@ -6,6 +6,7 @@
         ["transform-react-jsx", { "pragma":"preact.h" }],
         "transform-class-properties",
         "transform-es2015-modules-commonjs",
+        "babel-plugin-transform-export-extensions",
         "transform-object-rest-spread"
     ]
 }

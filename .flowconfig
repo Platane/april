@@ -16,3 +16,4 @@ type
 [options]
 all=true
 emoji=false
+esproposal.export_star_as=enable

@@ -1,13 +1,14 @@
 import preact from 'preact'
-
 import style    from './style.css'
 
-export const Footer = ({ profile, options, saveGist, copyToClipboard }) =>
+import {copyToClipboard, saveToGist} from '../../action'
+
+export const Footer = ({ profile, gistSaved, dispatch }) =>
     <div className={style.container}>
         { profile &&
-            <button onClick={ () => copyToClipboard(JSON.stringify(profile, null, 1)) } >copy to clipboard</button>
+            <button onClick={ () => dispatch(copyToClipboard()) } >copy to clipboard</button>
         }
-        { profile &&
-            <button onClick={ () => saveGist(options, profile) } >copy to gist</button>
+        { profile && !gistSaved &&
+            <button onClick={ () => dispatch(saveToGist()) } >save to gist</button>
         }
     </div>

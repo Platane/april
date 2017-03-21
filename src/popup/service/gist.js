@@ -1,54 +1,76 @@
 /* global fetch */
-import type EventEmitter            from 'events'
-import type {Options, Profile}      from '../../type'
+import type {Store}         from '../index'
+import {readProfilFromGist} from '../action'
 
-const getFileName = ( options: Options, profile: Profile ) =>
-    `${profile.info.firstName}-${profile.info.lastName}.json`
-        .toLowerCase()
-        .replace(/ /g, '_')
+const read = async ( gist_id: string, fileName: string ) => {
 
-export const init = ( ee: EventEmitter ) => {
+    const req = await fetch(
+        `https://api.github.com/gists/${gist_id}`,
+        {
+            headers     : {
+                'User-Agent'    : 'robot',
+            },
+            method      : 'GET',
+        }
+    )
 
-    return {
-        requestGist: async ( options: Options, profile: Profile ) => {
+    const data = await req.json()
 
-            const req = await fetch(
-                `https://api.github.com/gists/${options.gist_id}`,
-                {
-                    headers     : {
-                        'User-Agent'    : 'robot',
-                    },
-                    method      : 'GET',
-                }
-            )
+    return data.files[fileName] && JSON.parse(data.files[fileName].content)
+}
 
-            const data = await req.json()
+const save = async ( gist_id: string, gh_token: string, fileName: string, content: string ) => {
 
-            const fileName = getFileName( options, profile )
+    const req = await fetch(
+        `https://api.github.com/gists/${gist_id}`,
+        {
+            headers     : {
+                'User-Agent'    : 'robot',
+                'Authorization' : `token ${gh_token}`
+            },
+            method      : 'PATCH',
+            body        : JSON.stringify({ files: { [fileName]: { content } } }),
+        }
+    )
 
-            ee.emit('update', { saved_profile: data.files[fileName] && JSON.parse(data.files[fileName].content) })
-        },
+    const data = await req.json()
 
-        saveGist: async ( options: Options, profile: Profile ) => {
+    return data.files[fileName] && JSON.parse(data.files[fileName].content)
+}
 
-            const fileName = getFileName( options, profile )
+export const init = ( store: Store ) => {
 
-            const req = await fetch(
-                `https://api.github.com/gists/${options.gist_id}`,
-                {
-                    headers     : {
-                        'User-Agent'    : 'robot',
-                        'Authorization' : `token ${options.gh_token}`
-                    },
-                    method      : 'PATCH',
-                    body        : JSON.stringify({ files: { [fileName]: { content: JSON.stringify(profile, null, 1) } } }),
-                }
-            )
+    {
+        const done = {}
 
-            const data = await req.json()
+        store.subscribe( async () => {
 
-            if( data.files[fileName] )
-                ee.emit('update', { saved_profile: JSON.parse(data.files[fileName].content) })
-        },
+            const toSave = store.getState()['service.gist.toSave']
+            const {gh_token, gist_id} = store.getState()['options.value'] || {}
+
+            if ( !toSave || done[toSave.metaKey] || !gh_token || !gist_id )
+                return
+
+            done[toSave.metaKey] = true
+
+            store.dispatch( readProfilFromGist( await save(gist_id, gh_token, toSave.fileName, toSave.content ) ) )
+        })
+    }
+
+    {
+        const done = {}
+
+        store.subscribe( async () => {
+
+            const toFetch = store.getState()['service.gist.toFetch']
+            const {gist_id} = store.getState()['options.value'] || {}
+
+            if ( !toFetch || done[toFetch.metaKey] || !gist_id )
+                return
+
+            done[toFetch.metaKey] = true
+
+            store.dispatch( readProfilFromGist( await read(gist_id, toFetch.fileName ) ) )
+        })
     }
 }

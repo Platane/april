@@ -2,7 +2,9 @@
     "name": "april",
     "version": "0.1.0",
     "dependencies": {
-        "preact": "*"
+        "preact": "~7.2.0",
+        "redux": "~3.6.0",
+        "refinery-js": "~0.6.0"
     },
     "devDependencies": {
         "autoprefixer": "^6.3.6",
