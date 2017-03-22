@@ -4,6 +4,7 @@ import style    from './style.css'
 
 import {Content}   from '../content'
 import {Config}    from '../config'
+import {Home}      from '../home'
 
 export const App = props => {
 
@@ -24,7 +25,7 @@ export const App = props => {
                 ||
                 ( panel == 'profile' && <Content { ...o} /> )
                 ||
-                ( panel == 'home' && <div { ...o} /> )
+                ( panel == 'home' && <Home { ...o} /> )
                 ||
                 false
             }
