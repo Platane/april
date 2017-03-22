@@ -4,7 +4,7 @@ import type {
     Media,
     Profile,
     Company
-} from '../type/profile'
+} from '../../type/profile'
 
 
 type Data = {id:string, data:Object, request:string}
@@ -133,7 +133,7 @@ const parseExperience = ( entities ) : Array<Experience> =>
             }
         })
 
-export const parse = async ( body: HTMLElement ) : Promise<Profile> => {
+export const parse = ( body: HTMLElement ) : Profile => {
 
     const data = parseData( body )
 

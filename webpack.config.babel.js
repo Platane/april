@@ -13,7 +13,8 @@ module.exports = {
             './src/asset/image/icon48.png',
             './src/asset/image/icon128.png'
         ],
-        'content_script'    : './src/content_script.js',
+        'content_script'    : './src/content_script/index.js',
+        'background'        : './src/background.js',
     },
 
     output: {
