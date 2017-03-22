@@ -12,10 +12,10 @@ export const App = props => {
     const gistFileName  = props['profile.fromGist.fileName']
     const gistLoaded    = props['profile.fromGist.loaded']
     const canWriteGist  = props['options.canWriteGist']
-    const gist_id       = (props['options.value'] || {}).gist_id
+    const {gh_token, gist_id} = props['options.value'] || {}
     const panel         = props['appState.panel']
 
-    const o = { profile, gistSaved, gistLoaded, canWriteGist, gistFileName, gist_id }
+    const o = { profile, gistSaved, gistLoaded, canWriteGist, gistFileName, gist_id, gh_token }
 
     return (
         <div className={style.container}>

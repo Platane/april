@@ -19,7 +19,8 @@ export class Config extends preact.Component {
         super( props )
 
         this.state = {
-            ...props.options,
+            gist_id     : props.gist_id,
+            gh_token    : props.gh_token,
         }
 
         this._save = debounce(
@@ -27,6 +28,13 @@ export class Config extends preact.Component {
             () =>
                 this.context.store.dispatch(setOptions(this.state))
         )
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            gist_id     : nextProps.gist_id,
+            gh_token    : nextProps.gh_token,
+        })
     }
 
     setGistId = (gist_id: string) => {

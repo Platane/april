@@ -6,12 +6,16 @@ const production = 'production' == process.env.NODE_ENV
 module.exports = {
 
     entry: {
-        'index'             : [
+        'popup'             : [
             './src/popup/index.js',
-            './src/popup/index.html',
+            './src/popup/popup.html',
             './src/asset/image/icon16.png',
             './src/asset/image/icon48.png',
             './src/asset/image/icon128.png'
+        ],
+        'options'           : [
+            './src/options/index.js',
+            './src/options/options.html',
         ],
         'content_script'    : './src/content_script/index.js',
         'background'        : './src/background.js',
@@ -67,7 +71,12 @@ module.exports = {
                         loader  : 'postcss-loader',
                         options : {
                             plugins: () => [
-                                require('autoprefixer')({ }),
+                                ...( production
+                                    ? [
+                                        require('autoprefixer')({ }),
+                                    ]
+                                    : []
+                                ),
                             ]
                         },
                     },
