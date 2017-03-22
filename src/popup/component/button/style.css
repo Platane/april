@@ -1,0 +1,77 @@
+.container{
+    position            : relative;
+    height              : 60px;
+}
+.button{
+    height              : 40px;
+    /*padding             : 10px;*/
+    position            : relative;
+
+    display             : flex;
+    flex-direction      : column;
+    align-items         : center;
+    justify-content     : center;
+
+    background-color    : #1BA39C;
+    color               : #fff;
+    transition          : background-color 200ms ease;
+    cursor              : pointer;
+    border-radius       : 2px;
+    user-select         : none;
+}
+.button:active{
+    background-color    : #1a8b85;
+}
+.button_disabled{
+    background-color    : #78807e;
+}
+.button_disabled:active{
+    background-color    : #727977;
+}
+.sublabelShadow{
+    position            : absolute;
+    background-image    : linear-gradient( 0deg, rgba(0,0,0,0) 0%, rgba(0, 0, 0, 0.15) 100% );
+    margin              : 0 5px;
+    height              : 6px;
+    left                : 0;
+    right               : 0;
+    bottom              : 14px;
+}
+.sublabel{
+    bottom              : 0;
+    position            : absolute;
+    height              : 15px;
+    left                : 0;
+    right               : 0;
+
+    margin              : 0 5px;
+    padding             : 3px 10px;
+
+    display             : flex;
+    flex-direction      : column;
+    align-items         : center;
+    justify-content     : center;
+
+    cursor              : pointer;
+    font-size           : 0.9em;
+    background-color    : #0B8389;
+    color               : #fff;
+    transition          : background-color 200ms ease;
+    border-radius       : 0 0 2px 2px;
+    user-select         : none;
+}
+.sublabel:active{
+    background-color    : #0d6f74;
+}
+.sublabel{
+    transform-origin    : center 0;
+    animation           : sublabelAnimation 260ms ease;
+}
+@keyframes sublabelAnimation {
+    0%{
+        transform: translate3d(0,-20px,0) rotateZ(2deg);
+    }
+    100%{
+        transform: translate3d(0,0,0);
+    }
+}

@@ -11,6 +11,7 @@ chrome.runtime.onMessage.addListener( (request, sender, sendResponse) => {
             const {imageData_data, profile} = request
 
             chrome.browserAction.setBadgeText({ text: profile ? '!' : '', tabId })
+            chrome.browserAction.setBadgeBackgroundColor({ color: '#1BA39C' })
 
             if ( imageData_data ) {
 

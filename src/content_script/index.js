@@ -11,7 +11,7 @@ const check = debounce(
     async () => {
 
         profile         = parse( document.body )
-        imageData_data  = Array.from( (await buildIcon( profile, 64 )).data )
+        imageData_data  = Array.from( (await buildIcon( profile, 128 )).data )
 
         chrome.runtime.sendMessage({ type: 'update-profile', profile, imageData_data })
     }

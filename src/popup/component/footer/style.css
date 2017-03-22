@@ -1,0 +1,25 @@
+.container{
+    min-width       : 300px;
+    position        : relative;
+}
+.ribbon{
+    position        : absolute;
+    background-color: #eaeaea;
+    left            : 0;
+    right           : 0;
+    top             : 0;
+    bottom          : 20px;
+}
+.row{
+    position        : relative;
+    display         : flex;
+    flex-direction  : row;
+    padding         : 10px;
+}
+.row > * {
+    width           : 50%;
+    margin-right    : 10px;
+}
+.row > *:last-child {
+    margin-right    : 0;
+}

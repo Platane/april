@@ -1,8 +1,8 @@
-import {Content}    from './component/content'
+import {App}        from './component/app'
 import preact       from 'preact'
 import EventEmitter from 'events'
 
-import {init as initPage}        from './service/page'
+import {init as initPage}       from './service/page'
 import {init as initOptions}    from './service/options'
 import {init as initGist}       from './service/gist'
 import {init as initClipboard}  from './service/clipboard'
@@ -57,18 +57,24 @@ let store
 
             state = { }
 
+            getChildContext(){
+                return {
+                    store
+                }
+            }
+
             componentWillMount() {
                 store.subscribe( () => this.setState(store.getState()) )
             }
 
             render( props, state ){
-                return <C {...props} {...state} dispatch={store.dispatch} />
+                return <C {...props} {...state} />
             }
         }
         return StateInjector
     }
 
-    const ContentWithState = injectState( Content, store )
+    const ContentWithState = injectState( App, store )
 
     preact.render( <ContentWithState /> , document.getElementById('app') )
 }

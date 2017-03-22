@@ -15,6 +15,9 @@ fromStorage.source = true
 
 export const fromSetting = ( action: Action, state: Object ) : Object => {
     switch( action.type ){
+        case 'options:set' :
+            return action.options
+
         default:
             return state || {}
     }
@@ -23,6 +26,12 @@ fromSetting.source = true
 
 
 export const value = ( fromSetting, fromStorage ) =>
-    fromStorage || fromSetting
+    ({ ...(fromStorage || {}) , ...(fromSetting || {}) })
 
 value.dependencies = [ fromSetting, fromStorage ]
+
+
+export const canWriteGist = ( options ) =>
+    !!( options && options.gist_id && options.gh_token )
+
+canWriteGist.dependencies = [ value ]

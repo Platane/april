@@ -3,6 +3,8 @@
     display             : flex;
     align-items         : center;
     flex-direction      : column;
+
+    color               : #fff;
 }
 .pic{
     width               : 100px;
@@ -16,16 +18,36 @@
 .header{
     position            : absolute;
     top                 : 20px;
+    left                : 20%;
 }
 .content{
     width               : 100%;
     margin-top          : 100px;
-    background-color    : #0091ca;
-    padding             : 50px 10px 20px 10px;
+    background-color    : #1BBC9B;
+    padding             : 35px 10px 20px 10px;
     display             : flex;
     align-items         : center;
     flex-direction      : column;
 }
 .name{
+    font-size           : 1.1em;
+}
 
+.list{
+    margin              : 10px 0;
+    width               : calc( 100% - 30px );
+}
+.row{
+    display             : flex;
+    align-items         : center;
+    flex-direction      : row;
+}
+.label{
+
+}
+.number{
+    min-width           : 22px;
+    font-size           : 1.2em;
+    font-weight         : bold;
+    /*color               : #0B8389;*/
 }

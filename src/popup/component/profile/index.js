@@ -11,5 +11,5 @@ import type {
 
 export const Profile = ({ info, experience } : Profile_) =>
     <div className={style.container}>
-        <Info { ...info } />
+        <Info info={info} experience={experience} />
     </div>

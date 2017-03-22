@@ -1,14 +1,16 @@
-import preact from 'preact'
-import style    from './style.css'
+import preact       from 'preact'
+import style        from './style.css'
 
-import {copyToClipboard, saveToGist} from '../../action'
+import {Button as ButtonClipboard}      from './clipboardButton'
+import {Button as ButtonGist}           from './gistButton'
 
-export const Footer = ({ profile, gistSaved, dispatch }) =>
+export const Footer = props =>
     <div className={style.container}>
-        { profile &&
-            <button onClick={ () => dispatch(copyToClipboard()) } >copy to clipboard</button>
-        }
-        { profile && !gistSaved &&
-            <button onClick={ () => dispatch(saveToGist()) } >save to gist</button>
-        }
+
+        <div className={style.ribbon} />
+
+        <div className={style.row}>
+            { props.profile && <ButtonClipboard {...props} /> }
+            { props.profile && <ButtonGist {...props} /> }
+        </div>
     </div>
